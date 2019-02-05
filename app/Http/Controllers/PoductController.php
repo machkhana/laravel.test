@@ -12,4 +12,7 @@ class PoductController extends Controller
     public function show(int $prodid){
         return view('product.show')->with('prodid',$prodid);
     }
+    public function edit(){
+        return ('vasili');
+    }
 }
