@@ -11,3 +11,4 @@ class IndexController extends Controller
         return view('avtorizacia gaiara');
     }
 }
+giorgi
