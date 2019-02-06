@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+route::get('/','HomeController@index');
 route::get('/product','ProductController@index');
 route::get('/product/{id}','ProductController@show');
 
@@ -27,5 +25,7 @@ route::get('/product/{id}','ProductController@show');
 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::get('/', 'Admin\IndexController@index')->name('admin');
+    Route::resource('/category','Admin\CategoryController');
+});
