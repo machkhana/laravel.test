@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +17,8 @@ class CategoryController extends Controller
 
     public function __construct()
         {
+            $this->middleware('auth');
+
             $this->categories= new Category();
         }
 
@@ -43,12 +46,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validator=Validator::make($request->all(),[
             'name_ge'=>'required',
             'name_en'=>'required',
             'sort'=>'required',
         ]);
+        if($validator->fails()){
+            return redirect('/admin/category')->withErrors($validator)->withInput();
+        }
 
+        $this->categories->name_ge=$request->name_ge;
+        $this->categories->name_en=$request->name_en;
+        $this->categories->sort=$request->sort;
+        $this->categories->save();
         return redirect ('/admin/category');
     }
 
