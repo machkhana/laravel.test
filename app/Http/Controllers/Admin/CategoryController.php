@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +17,8 @@ class CategoryController extends Controller
 
     public function __construct()
         {
+            $this->middleware('auth');
+
             $this->categories= new Category();
         }
 
@@ -32,7 +35,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $categoryes=$this->categories->all();
+        return view('admin.category.create')->with('categoryes',$categoryes);
     }
 
     /**
@@ -43,11 +47,33 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name_ge'=>'required',
-            'name_en'=>'required',
-            'sort'=>'required',
-        ]);
+        if($request->cat == NULL){
+            $this->validate($request ,[
+                'name_ge'=>'required',
+                'name_en'=>'required',
+                'sort'=>'required',
+            ]);
+            $this->categories->name_ge=$request->name_ge;
+            $this->categories->name_en=$request->name_en;
+            $this->categories->sort=$request->sort;
+            $this->categories->save();
+        }else{
+            $this->validate($request ,[
+                'name_ge'=>'required',
+                'name_en'=>'required',
+                'cat'=>'required',
+            ]);
+            $this->subcategories->name_ge=$request->name_ge;
+            $this->subcategories->name_en=$request->name_en;
+            $this->subcategories->cat_id=$request->cat;
+            $this->subcategories->save();
+        }
+
+        /*if($this->validate($request)->fails()){
+            return redirect('/admin/category')->withErrors($this->validate($request))->withInput();
+        }*/
+
+
 
         return redirect ('/admin/category');
     }
@@ -69,7 +95,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         //
     }

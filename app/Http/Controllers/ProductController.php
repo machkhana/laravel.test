@@ -10,9 +10,11 @@ class ProductController extends Controller
         return view('product.index');
     }
     public function show(int $prodid){
+
         return view('product.show')->with('prodid',$prodid);
     }
     public function edit(){
         return ('vasili');
+
     }
 }

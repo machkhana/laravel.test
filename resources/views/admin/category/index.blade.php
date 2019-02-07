@@ -13,6 +13,7 @@
                                     <th>Name GE</th>
                                     <th>Name EN</th>
                                     <th>Sort</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -22,6 +23,8 @@
                                     <td>{{$categoy->name_ge}}</td>
                                     <td>{{$categoy->name_en}}</td>
                                     <td>{{$categoy->sort}}</td>
+                                    <td><a href="{{route('admin.category.edit',$categoy)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </a></td>
                                 </tr>
                             @endforeach
                             </tbody>
