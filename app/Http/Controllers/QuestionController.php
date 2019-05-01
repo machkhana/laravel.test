@@ -26,7 +26,9 @@ class QuestionController extends Controller
             ->with('users',$users);
     }
     public function show(int $id){
-        $questions = $this->question->where('user_id',$id);
+        $questions = $this->question->where('user_id',$id)->first();
+
+        //dd($this->question->users($id)->name);
         return view('question.show')
             ->with('questions',$questions);
     }

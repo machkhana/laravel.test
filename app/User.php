@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Question;
+use App\Model\Questioncomment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,7 +30,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function questions(){
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class, 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function questioncomments(){
+        return $this->hasMany(Questioncomment::class, 'id');
     }
 }
