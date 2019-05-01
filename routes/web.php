@@ -3,6 +3,7 @@
 
 Route::get('/','HomeController@index');
 Route::get('question','QuestionController@index')->name('question');
+Route::get('question/{id}','QuestionController@show')->name('question.show');
 Route::get('/product','ProductController@index');
 Route::get('/product/{id}','ProductController@show');
 

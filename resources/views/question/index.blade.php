@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    @forelse($questions as $question)
-        {{$question->users->name}}
+    @forelse($users as $user)
+        <a href="{{route('question.show',$user->id)}}">{{$user->name}}</a>
+    @empty
+        Iformation not found
     @endforelse
 @endsection

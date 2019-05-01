@@ -1,7 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 5/1/2019
- * Time: 9:48 PM
- */
+@extends('layouts.app')
+@section('content')
+    @forelse($questions as $question)
+        {{$questions->title}}
+    @empty
+        Iformation not found
+    @endforelse
+@endsection
